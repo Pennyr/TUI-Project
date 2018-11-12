@@ -21,6 +21,7 @@ public class symKeyScript : MonoBehaviour {
 
     private Color tmp;
     private bool triggerOnce = false; //-enable other animator only once
+    private bool afterAnim = false;
 
     // Use this for initialization
     void Start()
@@ -35,20 +36,9 @@ public class symKeyScript : MonoBehaviour {
         
         symKey_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
 
-        ///symKey_collider = this.GetComponentInChildren<Collider2D>();
-
-
-        ///chest_ps = chest.GetComponent<ParticleSystem>();
-
-        ///chest_fadingOBJ = chest.GetComponentInChildren<Animator>();
-
-        ///chest_collider = chest.GetComponentInChildren<Collider2D>();
-
         //-set the & turn off gradient ring
         var colOL = symKey_ps.colorOverLifetime;
         var colbS = symKey_ps.colorBySpeed;
-        ///var em_symKey_ps = symKey_ps.emission;
-        
 
         colOL.enabled = true;   //-gradient ring
         colbS.enabled = false;  //-solid ring
@@ -56,24 +46,12 @@ public class symKeyScript : MonoBehaviour {
         this.gameObject.SetActive(false);
         symKey_MergeMove.enabled = false; //-motion animator off
 
-        ///em_symKey_ps.enabled = false; //-ring emission
-
-        ///symKey_fadingOBJ.enabled = false; //-sprite animator off
-        
-
-        //-alpha off sym Key sprite
-        ///tmp = symKey_SpriteRenderer.color;
-        ///tmp.a = 0f;
-        ///symKey_SpriteRenderer.color = tmp;
-
-        //-disable collider
-        ///symKey_collider.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(symKey_MergeMove.GetCurrentAnimatorStateInfo(0).IsName("moveSymKeyOne"));
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -82,14 +60,10 @@ public class symKeyScript : MonoBehaviour {
         //-1. turn chest sprite animation on and visible
         if (other.gameObject.tag == "symKeyFid")
         {
-            // Debug.Log("Triggered");
-            ///var em_chest = chest_ps.emission;
-            ///em_chest.enabled = true;
 
             if (!triggerOnce)
             {
-                ///chest_fadingOBJ.enabled = true; //-chest sprite animator on
-                ///chest_collider.enabled = true; //-chest collider on
+
                 chest.gameObject.SetActive(true);
                 triggerOnce = true;
             }
@@ -115,7 +89,9 @@ public class symKeyScript : MonoBehaviour {
             symKey_SpriteRenderer.color = tmp;
             //-stop animator
             symKey_fadingOBJ.enabled = false;
-            //Debug.Log("Staying");
+
+            //if(afterAnim)
+            //    moveWithFid();
         }
     }
 
@@ -131,14 +107,20 @@ public class symKeyScript : MonoBehaviour {
             colbS.enabled = false;
             //-start symKey animator
             symKey_fadingOBJ.enabled = true;
-
-            //Debug.Log("Exiting");
         }
     }
 
     void OnStateExit()
     {
+        afterAnim = true;
         Debug.Log("Animation Finished");
     }
 
+    void moveWithFid()
+    {
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f);
+        Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        this.transform.position = objPosition;
+    }
 }

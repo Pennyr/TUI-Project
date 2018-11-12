@@ -16,10 +16,6 @@ public class serverScript : MonoBehaviour
     private Animator server_fadingOBJ;  //-server Animator
     private SpriteRenderer server_SpriteRenderer; //-server SpriteRenderer 
     
-    ///private ParticleSystem symKey_ps; //-symmetric ParticleSystem 
-    ///private Animator symKey_fadingOBJ;  //-symmetric Animator
-    ///private Collider2D symKey_collider; //-symmetric Collider
-
     private Color tmp;
     private bool triggerOnce = false; //-enable other animator only once
 
@@ -31,10 +27,6 @@ public class serverScript : MonoBehaviour
         server_ps = this.GetComponent<ParticleSystem>();
         server_fadingOBJ = this.GetComponentInChildren<Animator>();
         server_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
-
-        ///symKey_ps = symKey.GetComponent<ParticleSystem>();
-        ///symKey_fadingOBJ = symKey.transform.GetChild(0).GetComponentInChildren<Animator>();
-        ///symKey_collider = symKey.GetComponentInChildren<Collider2D>();
 
         //-show gradient ring
         var colOL = server_ps.colorOverLifetime;
@@ -58,14 +50,10 @@ public class serverScript : MonoBehaviour
         if (other.gameObject.tag == "serverFid")
         {
             // Debug.Log("Triggered");
-            ///var em_symkey = symKey_ps.emission;
-            ///em_symkey.enabled = true;
 
             if (!triggerOnce)
             {
                 symKey.gameObject.SetActive(true);
-                ///symKey_fadingOBJ.enabled = true; //-sym key sprite animator on
-                ///symKey_collider.enabled = true; //-sym key collider on
                 triggerOnce = true;
             }
             
@@ -92,7 +80,7 @@ public class serverScript : MonoBehaviour
             server_SpriteRenderer.color = tmp;
             //-stop animator
             server_fadingOBJ.enabled = false;
-            //Debug.Log("Staying");
+
         }
     }
 
@@ -112,7 +100,6 @@ public class serverScript : MonoBehaviour
             //-start server animator
             server_fadingOBJ.enabled = true;
 
-            //Debug.Log("Exiting");
         }
     }
 
