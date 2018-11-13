@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\chestScript.cs" />
     <Compile Include="Assets\Scripts\DragableUI.cs" />
     <Compile Include="Assets\Scripts\ecriptScript.cs" />
+    <Compile Include="Assets\Scripts\menuScript.cs" />
     <Compile Include="Assets\Scripts\MouseMove.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\serverScript.cs" />
