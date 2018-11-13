@@ -7,6 +7,7 @@ TagManager:
   - serverFid
   - chestFid
   - symKeyFid
+  - userA
   layers:
   - Default
   - TransparentFX
