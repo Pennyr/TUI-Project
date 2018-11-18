@@ -61,14 +61,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\animationEnd.cs" />
     <Compile Include="Assets\Scripts\chestScript.cs" />
+    <Compile Include="Assets\Scripts\client.cs" />
     <Compile Include="Assets\Scripts\DragableUI.cs" />
     <Compile Include="Assets\Scripts\ecriptScript.cs" />
     <Compile Include="Assets\Scripts\menuScript.cs" />
     <Compile Include="Assets\Scripts\MouseMove.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
+    <Compile Include="Assets\Scripts\server.cs" />
     <Compile Include="Assets\Scripts\serverScript.cs" />
     <Compile Include="Assets\Scripts\symKeyScript.cs" />
+    <Compile Include="Assets\Scripts\userAScript.cs" />
     <Compile Include="Assets\UNIDUCIAL (UNITY)\FiducialController.cs" />
     <Compile Include="Assets\UNIDUCIAL (UNITY)\TUIOConnector\OSCBundle.cs" />
     <Compile Include="Assets\UNIDUCIAL (UNITY)\TUIOConnector\OSCMessage.cs" />

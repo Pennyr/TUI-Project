@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/JustForCanvas.unity
+- path: Assets/Scenes/Symethric.unity
   isLoaded: 1
   isActive: 1

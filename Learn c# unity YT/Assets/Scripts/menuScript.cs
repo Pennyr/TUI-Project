@@ -4,57 +4,79 @@ using UnityEngine;
 
 public class menuScript : MonoBehaviour
 {
-    public FiducialController tangible;
-    public GameObject userB;
+    public FiducialController tangible; // fiducial for this user
     private Animator MenuAnimator; //-menu Animator
 
+    public GameObject userB;
 
+    private List<GameObject> children;
 
     // Use this for initialization
     void Start()
     {
-
+        int index = 0;
+        //-On Game Start
+        //-init vars
         MenuAnimator = this.GetComponent<Animator>();
 
-
+        foreach (Transform tf in this.transform.parent)
+        {
+            children.Add(this.transform.parent.GetChild(index).gameObject);
+            index++;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         MenuAnimator.SetFloat("rotation", tangible.AngleDegrees);
-
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-
         Debug.Log("Trigger Enter");
-        MenuAnimator.SetBool("select", true);
 
+        MenuAnimator.SetBool("select", true);
     }
 
+   
     void OnTriggerExit2D(Collider2D other)
     {
         Debug.Log("Trigger Exit");
-        MenuAnimator.SetBool("select", false);
-    }
 
-    void TransmitKey()
-    {
-        Debug.Log("Transmit Key");
+        MenuAnimator.SetBool("select", false);
     }
 
     void TransmitRawData()
     {
         Debug.Log("Transmit Raw Data");
+
+        // game object child (user and hacker) set active true
+        this.transform.parent.GetChild(1).gameObject.SetActive(true);
+        this.transform.parent.GetChild(2).gameObject.SetActive(true);
+        
+        // blink chest
     }
 
     void TransmitEncryptedData()
     {
         Debug.Log("Transmit Encrypted Data");
+
+        // game object child (user and hacker) set active true
+        this.transform.parent.GetChild(3).gameObject.SetActive(true);
+        this.transform.parent.GetChild(4).gameObject.SetActive(true);
     }
 
+    void TransmitKey()
+    {
+        Debug.Log("Transmit Key");
+
+        // game object child (user and hacker) set active true
+        this.transform.parent.GetChild(5).gameObject.SetActive(true);
+        this.transform.parent.GetChild(6).gameObject.SetActive(true);
+    }
+
+    /* not used*/
     void Encrypt()
     {
         Debug.Log("Encrypt");
@@ -64,17 +86,7 @@ public class menuScript : MonoBehaviour
     {
         Debug.Log("Decrypt");
     }
-
-    //TODO
-    /*
-     * USER BLINK UNTIL FIDUCIAL
-     * STOP PARTICLE UNTIL FIDUCIAL
-     * RAW DATA TO USER ON MENU SELECT. FIX TO USER AND HACKER. 
-     * RAW DATA TO HACKER ON MENU SELECT. FIX TO USER AND HACKER.
-     * ENCCRYPTED SEND ON ARDUINO
-     * KEYUSER ON MENU
-     * KEYHACKER ON MENU
-     * REMOVE TRANSMIT ENCRYPTED FROM ANIMATION 
-     */
+    /* not used*/
+    
 
 }
