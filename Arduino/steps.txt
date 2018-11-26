@@ -1,0 +1,23 @@
+install ide
+install usb serial driver
+
+Open the Arduino IDE.
+Go to File > Preferences.
+Paste the URL http://arduino.esp8266.com/stable/package_esp8266com_index.json into the Additional Board Manager URLs field.
+(You can add multiple URLs, separating them with commas.)
+Go to Tools > Board > Board Manager and search for 'esp8266'. Select the newest version, and click install. (As of February 7th 2017, the latest stable version is 2.3.0.)
+
+set baud rate for serial monitor
+set board ip from serial monitor to unity
+set wifi password
+
+git diff master origin/master
+git fetch master origin/master
+git log
+git fetch origin
+git reset --hard origin/master
+it reflog show
+git reset HEAD@{1}
+git checkout .
+git rebase -i HEAD@{10}
+git stash --include-untracked
