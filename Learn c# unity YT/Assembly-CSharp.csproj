@@ -61,15 +61,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\NetTest\ActiveTangible.cs" />
+    <Compile Include="Assets\NetTest\client.cs" />
+    <Compile Include="Assets\NetTest\GameManager.cs" />
+    <Compile Include="Assets\NetTest\InputController.cs" />
+    <Compile Include="Assets\NetTest\MyClient.cs" />
+    <Compile Include="Assets\NetTest\MyPlayer.cs" />
+    <Compile Include="Assets\NetTest\MyServer.cs" />
+    <Compile Include="Assets\NetTest\PlaneController.cs" />
+    <Compile Include="Assets\NetTest\server.cs" />
+    <Compile Include="Assets\NetTest\SpriteTiler.cs" />
+    <Compile Include="Assets\NetTest\tcpServer.cs" />
     <Compile Include="Assets\Scripts\animationEnd.cs" />
     <Compile Include="Assets\Scripts\chestScript.cs" />
-    <Compile Include="Assets\Scripts\client.cs" />
     <Compile Include="Assets\Scripts\DragableUI.cs" />
     <Compile Include="Assets\Scripts\ecriptScript.cs" />
     <Compile Include="Assets\Scripts\menuScript.cs" />
     <Compile Include="Assets\Scripts\MouseMove.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
-    <Compile Include="Assets\Scripts\server.cs" />
     <Compile Include="Assets\Scripts\serverScript.cs" />
     <Compile Include="Assets\Scripts\symKeyScript.cs" />
     <Compile Include="Assets\Scripts\userAScript.cs" />

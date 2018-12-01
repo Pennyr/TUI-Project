@@ -45,8 +45,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.50000006, y: 0.4}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -89,18 +89,18 @@ TextureImporter:
       name: menu_selector_0
       rect:
         serializedVersion: 2
-        x: 464
+        x: 462
         y: 931
         width: 173
         height: 88
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: -4.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d726b73ab3712ac47bc0abf6e2ff7c02
+      spriteID: 3baf6109e2cd2a14ab455479aa23c900
       vertices: []
       indices: 
       edges: []
@@ -113,14 +113,14 @@ TextureImporter:
         y: 61
         width: 860
         height: 857
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91329fe736bf77e468d74a5fa5dec428
+      spriteID: 0271b0da63990a049b3290375c33090a
       vertices: []
       indices: 
       edges: []
@@ -128,7 +128,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 8769d3ec804fd744896ed7f6cc38376a
+    spriteID: 3882648910b0fd84395c3e2d932db621
     vertices: []
     indices: 
     edges: []
