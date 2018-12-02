@@ -336,5 +336,3 @@ C:\Users\rob\Documents\UnityProject\TUI-Project\Learn c# unity YT\Temp\bin\Debug
 C:\Users\rob\Documents\UnityProject\TUI-Project\Learn c# unity YT\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\rob\Documents\UnityProject\TUI-Project\Learn c# unity YT\obj\Debug\Assembly-CSharp.dll
 C:\Users\rob\Documents\UnityProject\TUI-Project\Learn c# unity YT\obj\Debug\Assembly-CSharp.pdb
-C:\Users\rob\Documents\UnityProject\TUI-Project\Learn c# unity YT\Temp\bin\Debug\UnityEditor.UI.dll
-C:\Users\rob\Documents\UnityProject\TUI-Project\Learn c# unity YT\Temp\bin\Debug\UnityEditor.UI.xml

@@ -1,5 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using UnityEngine;
 
 public class userAScript : MonoBehaviour {
@@ -7,10 +11,6 @@ public class userAScript : MonoBehaviour {
     public FiducialController tangible; // fiducial for this user
 
     private ParticleSystem user_ps; // UserA ParticleSystem 
-    private Animator user_fadingOBJ;  // UserA Animator
-    private SpriteRenderer user_SpriteRenderer; // UserA SpriteRenderer 
-    private Color tmp; // UserA Sprite Color
-    
     private Dictionary<string, GameObject> childGameObjects = new Dictionary<string, GameObject>();
     
     private string fiducialTag = "userA";
@@ -25,6 +25,14 @@ public class userAScript : MonoBehaviour {
 
     private Vector3 collBounds;
 
+    UdpClient udpClient = new UdpClient(); // new UdpClient() // with tangable try fixing a port
+    IPEndPoint userATangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 51000);  // target endpoint
+    IPEndPoint userBTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 21000);  // target endpoint
+    IPEndPoint hackerTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 31000);  // target endpoint
+    IPEndPoint chestTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 41000);  // target endpoint
+
+    Byte[] sendBytes;
+
     // Use this for initialization
     void Start() // On Game Start
     {
@@ -38,8 +46,6 @@ public class userAScript : MonoBehaviour {
 
         // initialise variables
         user_ps = this.GetComponent<ParticleSystem>();
-        user_fadingOBJ = childGameObjects["userImg"].GetComponent<Animator>();
-        user_SpriteRenderer = childGameObjects["userImg"].GetComponent<SpriteRenderer>();
 
         // show gradient ring
         var colOL = user_ps.colorOverLifetime;
@@ -47,6 +53,14 @@ public class userAScript : MonoBehaviour {
 
         colOL.enabled = true;   //-gradient ring
         colbS.enabled = false;  //-solid ring
+
+        // Sends a message to the tangible
+        sendBytes = Encoding.ASCII.GetBytes("Unity: Place tangibles in place, blink led");
+
+        udpClient.BeginSend(sendBytes, sendBytes.Length, userATangible, null, null);
+        udpClient.BeginSend(sendBytes, sendBytes.Length, userBTangible, null, null);
+        udpClient.BeginSend(sendBytes, sendBytes.Length, hackerTangible, null, null);
+        udpClient.BeginSend(sendBytes, sendBytes.Length, chestTangible, null, null);
     }
 
     // Update is called once per frame
@@ -65,14 +79,6 @@ public class userAScript : MonoBehaviour {
         //-2. turn server sprite animation off and fade out
         if (other.gameObject.tag == fiducialTag && other.bounds.Contains(collBounds))
         {
-            //Delete//
-            /*
-            if (other.bounds.Contains(collBounds))
-            {
-                //Delete//
-                Debug.Log("Fully inside");
-            }
-            */
 
             // get initial tangible angle
             if (!initialOnce)
@@ -88,34 +94,19 @@ public class userAScript : MonoBehaviour {
                 offset = 60 - initial;
 
                 initialOnce = true;
-                //Delete// childGameObjects["menu"].transform.GetChild(0).gameObject.GetComponent<Animator>().SetFloat("offset", offset);
-                //Delete//Debug.Log("Hello 1");
+
+                // Sends a message to the tangible
+                sendBytes = Encoding.ASCII.GetBytes("Unity: Tangible in place, led off");
+
+                udpClient.BeginSend(sendBytes, sendBytes.Length, userATangible, null, null);
             }
 
-            //Delete// fade out animator sprite
-            /*
-            while (tmp.a != 0f)
-            {
-                tmp = user_SpriteRenderer.color;
-                tmp.a -= 0.07f;
-                user_SpriteRenderer.color = tmp;
-                Debug.Log("tmp.a != 0f");
-            }
-            
-            // stop animator
-            user_fadingOBJ.enabled = false;
-            */
             now = tangible.AngleDegrees;
             now += offset;
-            //Delete//Debug.Log("Hello 2");
+
             if (now > pointerStart && now < pointerEnd) // if tangible angle is within range & clip tangible rotation to pointer limits
             {
                 childGameObjects["menuSelector"].transform.rotation = Quaternion.Euler(180,0,now);
-
-                //Delete//childGameObjects["menu"].transform.GetChild(0).gameObject.GetComponent<Animator>().SetFloat("rotation", now);
-                //Delete//childGameObjects["menu"].transform.GetChild(0).gameObject.GetComponent<Animator>().SetFloat("rotationoriginal", tangible.AngleDegrees);
-                //Delete//Debug.Log("Hello 3");
-
             }
 
         }
@@ -137,12 +128,8 @@ public class userAScript : MonoBehaviour {
             // show gradient ring
             colOL.enabled = true;
             colbS.enabled = false;
-            // start server animator
-            user_fadingOBJ.enabled = true;
 
             initialOnce = false;
-            //Delete//Debug.Log("Hello 4");
-
         }
     }
 

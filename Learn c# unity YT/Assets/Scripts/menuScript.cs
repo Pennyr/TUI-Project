@@ -1,34 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using UnityEngine;
 
 public class menuScript : MonoBehaviour
 {
     private float pointerRotation;
     private Dictionary<string, GameObject> childGameObjects = new Dictionary<string, GameObject>();
-    /*
-    public FiducialController tangible; // fiducial for this user
-    private Animator MenuAnimator; //-menu Animator
 
-    public GameObject userB;
+    UdpClient udpClient = new UdpClient(); // new UdpClient() // with tangable try fixing a port
+    IPEndPoint userATangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 51000);  // target endpoint
+    IPEndPoint userBTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 21000);  // target endpoint
+    IPEndPoint hackerTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 31000);  // target endpoint
+    IPEndPoint chestTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 41000);  // target endpoint
 
-    private List<GameObject> children;
-    */
+    Byte[] sendBytes;
+
     // Use this for initialization
     void Start()
     {
-        /*
-        int index = 0;
-        //-On Game Start
-        //-init vars
-        MenuAnimator = this.GetComponent<Animator>();
 
-        foreach (Transform tf in this.transform.parent)
-        {
-            children.Add(this.transform.parent.GetChild(index).gameObject);
-            index++;
-        }
-        */
         childGameObjects.Add("sendRaw", this.transform.GetChild(0).gameObject);    // send encrypted data to user B
         childGameObjects.Add("sendKey", this.transform.GetChild(1).gameObject);    // send raw data to user B
         childGameObjects.Add("sendEnc", this.transform.GetChild(2).gameObject);      // send raw data to hacker
@@ -40,31 +34,29 @@ public class menuScript : MonoBehaviour
         childGameObjects.Add("keyHkr", this.transform.GetChild(8).gameObject);          // send key to hacker
         childGameObjects.Add("encData", this.transform.GetChild(9).gameObject);         // data encryption animation
         childGameObjects.Add("decryData", this.transform.GetChild(10).gameObject);       // data decryption animation
+
+        // schedule the first receive operation:
+        udpClient.BeginReceive(new AsyncCallback(OnUdpData), udpClient);
+
     }
     
     // Update is called once per frame
     void Update()
     {
-        //MenuAnimator.SetFloat("rotation", tangible.AngleDegrees);
+
         pointerRotation = this.transform.parent.GetChild(1).transform.localRotation.eulerAngles.z;
-        //Delete// Debug.Log(pointerRotation);
+
         if (pointerRotation > 60 && pointerRotation < 85)
         {
-            childGameObjects["sendRaw"].GetComponent<Animator>().enabled = true;
-            childGameObjects["sendKey"].GetComponent<Animator>().enabled = false;
-            childGameObjects["sendEnc"].GetComponent<Animator>().enabled = false;
+            EnableSelectorAnimator(true, false, false);
         }
         else if (pointerRotation > 84 && pointerRotation < 110)
         {
-            childGameObjects["sendRaw"].GetComponent<Animator>().enabled = false;
-            childGameObjects["sendKey"].GetComponent<Animator>().enabled = true;
-            childGameObjects["sendEnc"].GetComponent<Animator>().enabled = false;
+            EnableSelectorAnimator(false, true, false);
         }
         else if (pointerRotation > 109 && pointerRotation < 121)
         {
-            childGameObjects["sendRaw"].GetComponent<Animator>().enabled = false;
-            childGameObjects["sendKey"].GetComponent<Animator>().enabled = false;
-            childGameObjects["sendEnc"].GetComponent<Animator>().enabled = true;
+            EnableSelectorAnimator(false, false, true);
         }
     }
     
@@ -72,47 +64,68 @@ public class menuScript : MonoBehaviour
     {
         Debug.Log("Trigger Enter");
 
-        //MenuAnimator.SetBool("select", true);
+        if (pointerRotation > 60 && pointerRotation < 85) // active raw data 
+        {
+            // to make anim repeatable, remove EndOfAnimation function and make enable & disable
+            childGameObjects["rawDataUserB"].SetActive(true);
+            childGameObjects["rawDataHkr"].SetActive(true);
+
+            // Sends a message to the tangible
+            sendBytes = Encoding.ASCII.GetBytes("Unity: User sent raw data, blink led");
+            udpClient.BeginSend(sendBytes, sendBytes.Length, userBTangible, null, null);
+            udpClient.BeginSend(sendBytes, sendBytes.Length, hackerTangible, null, null);
+        }
+        else if (pointerRotation > 84 && pointerRotation < 110) // active key
+        {
+            childGameObjects["keyUserB"].SetActive(true);
+            childGameObjects["keyHkr"].SetActive(true);
+
+            // Sends a message to the tangible
+            sendBytes = Encoding.ASCII.GetBytes("Unity: User sent key, blink led");
+            udpClient.BeginSend(sendBytes, sendBytes.Length, userBTangible, null, null);
+            udpClient.BeginSend(sendBytes, sendBytes.Length, hackerTangible, null, null);
+
+        }
+        else if (pointerRotation > 109 && pointerRotation < 121) // active enc data 
+        {
+            childGameObjects["encDataUserB"].SetActive(true);
+            childGameObjects["encDataHkr"].SetActive(true);
+
+            // Sends a message to the tangible
+            sendBytes = Encoding.ASCII.GetBytes("Unity: User sent encrypted, blink led");
+            udpClient.BeginSend(sendBytes, sendBytes.Length, userBTangible, null, null);
+            udpClient.BeginSend(sendBytes, sendBytes.Length, hackerTangible, null, null);
+
+        }
+
     }
 
    
     void OnTriggerExit2D(Collider2D other)
     {
         Debug.Log("Trigger Exit");
-
-      //  MenuAnimator.SetBool("select", false);
-    }
-    /*
-    void TransmitRawData()
-    {
-        Debug.Log("Transmit Raw Data");
-
-        // game object child (user and hacker) set active true
-        this.transform.parent.GetChild(1).gameObject.SetActive(true);
-        this.transform.parent.GetChild(2).gameObject.SetActive(true);
         
-        // blink chest
     }
 
-    void TransmitEncryptedData()
+    void EnableSelectorAnimator(bool b1, bool b2, bool b3)
     {
-        Debug.Log("Transmit Encrypted Data");
-
-        // game object child (user and hacker) set active true
-        this.transform.parent.GetChild(3).gameObject.SetActive(true);
-        this.transform.parent.GetChild(4).gameObject.SetActive(true);
+        childGameObjects["sendRaw"].GetComponent<Animator>().enabled = b1;
+        childGameObjects["sendKey"].GetComponent<Animator>().enabled = b2;
+        childGameObjects["sendEnc"].GetComponent<Animator>().enabled = b3;
     }
 
-    void TransmitKey()
+    static void OnUdpData(IAsyncResult result)
     {
-        Debug.Log("Transmit Key");
-
-        // game object child (user and hacker) set active true
-        this.transform.parent.GetChild(5).gameObject.SetActive(true);
-        this.transform.parent.GetChild(6).gameObject.SetActive(true);
+        // this is what had been passed into BeginReceive as the second parameter:
+        UdpClient socket = result.AsyncState as UdpClient;
+        // points towards whoever had sent the message:
+        IPEndPoint source = new IPEndPoint(0, 0);
+        // get the actual message and fill out the source:
+        byte[] message = socket.EndReceive(result, ref source);
+        // do what you'd like with `message` here:
+        Debug.Log("Got " + message.Length + " bytes from " + source);
+        // schedule the next receive operation once reading is done:
+        socket.BeginReceive(new AsyncCallback(OnUdpData), socket);
     }
-
-    */
-    
 
 }

@@ -16,6 +16,8 @@ public class animationEnd : MonoBehaviour {
 
     void EndOfAnimation()
     {
+        // Turns object off @ end of animation
         this.gameObject.SetActive(false);
+
     }
 }
