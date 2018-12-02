@@ -23,29 +23,25 @@ public class userAScript : MonoBehaviour {
     private float pointerStart = 60;
     private float pointerEnd = 120;
 
+    private Vector3 collBounds;
+
     // Use this for initialization
     void Start() // On Game Start
     {
-        
+
+        collBounds = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+ 
         // Get reference to children objects
         childGameObjects.Add("userImg", this.transform.GetChild(0).gameObject);         // user icon
-        childGameObjects.Add("rawDataUserB", this.transform.GetChild(1).gameObject);    // send raw data to user B
-        childGameObjects.Add("rawDataHkr", this.transform.GetChild(2).gameObject);      // send raw data to hacker
-        childGameObjects.Add("encDataUserB", this.transform.GetChild(3).gameObject);    // send encrypted data to user B
-        childGameObjects.Add("encDataHkr", this.transform.GetChild(4).gameObject);      // send encrypted data to hacker
-        childGameObjects.Add("keyUserB", this.transform.GetChild(5).gameObject);        // send key to user B
-        childGameObjects.Add("keyHkr", this.transform.GetChild(6).gameObject);          // send key to hacker
-        childGameObjects.Add("encData", this.transform.GetChild(7).gameObject);         // data encryption animation
-        childGameObjects.Add("decryData", this.transform.GetChild(8).gameObject);       // data decryption animation
-        childGameObjects.Add("menuSelector", this.transform.GetChild(9).gameObject);    // menu child object
-        childGameObjects.Add("menu", this.transform.GetChild(10).gameObject);            // menu child object
+        childGameObjects.Add("menuSelector", this.transform.GetChild(1).gameObject);    // menu child object
+        childGameObjects.Add("menu", this.transform.GetChild(2).gameObject);            // menu child object
 
-        //-init vars
+        // initialise variables
         user_ps = this.GetComponent<ParticleSystem>();
-        user_fadingOBJ = this.GetComponentInChildren<Animator>();
-        user_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
+        user_fadingOBJ = childGameObjects["userImg"].GetComponent<Animator>();
+        user_SpriteRenderer = childGameObjects["userImg"].GetComponent<SpriteRenderer>();
 
-        //-show gradient ring
+        // show gradient ring
         var colOL = user_ps.colorOverLifetime;
         var colbS = user_ps.colorBySpeed;
 
@@ -67,39 +63,58 @@ public class userAScript : MonoBehaviour {
         //-on server fiducial stay:
         //-1. show solid ring
         //-2. turn server sprite animation off and fade out
-        if (other.gameObject.tag == fiducialTag)
+        if (other.gameObject.tag == fiducialTag && other.bounds.Contains(collBounds))
         {
+            //Delete//
+            /*
+            if (other.bounds.Contains(collBounds))
+            {
+                //Delete//
+                Debug.Log("Fully inside");
+            }
+            */
+
             // get initial tangible angle
             if (!initialOnce)
             {
                 childGameObjects["menu"].SetActive(true); // enable menu on fiducial in
                 childGameObjects["menuSelector"].SetActive(true); // enable menuSelector on fiducial in
-
+                childGameObjects["userImg"].SetActive(false); // disable image
                 // show solid ring
                 colOL.enabled = false;
                 colbS.enabled = true;
-                // fade out animator sprite
-                tmp = user_SpriteRenderer.color;
-                tmp.a -= 0.07f;
-                user_SpriteRenderer.color = tmp;
-                // stop animator
-                user_fadingOBJ.enabled = false;
 
                 initial = tangible.AngleDegrees;
                 offset = 60 - initial;
 
                 initialOnce = true;
+                //Delete// childGameObjects["menu"].transform.GetChild(0).gameObject.GetComponent<Animator>().SetFloat("offset", offset);
+                //Delete//Debug.Log("Hello 1");
+            }
+
+            //Delete// fade out animator sprite
+            /*
+            while (tmp.a != 0f)
+            {
+                tmp = user_SpriteRenderer.color;
+                tmp.a -= 0.07f;
+                user_SpriteRenderer.color = tmp;
+                Debug.Log("tmp.a != 0f");
             }
             
+            // stop animator
+            user_fadingOBJ.enabled = false;
+            */
             now = tangible.AngleDegrees;
             now += offset;
-
+            //Delete//Debug.Log("Hello 2");
             if (now > pointerStart && now < pointerEnd) // if tangible angle is within range & clip tangible rotation to pointer limits
             {
                 childGameObjects["menuSelector"].transform.rotation = Quaternion.Euler(180,0,now);
 
-                childGameObjects["menu"].transform.GetChild(0).gameObject.GetComponent<Animator>().SetFloat("rotation", now);
-
+                //Delete//childGameObjects["menu"].transform.GetChild(0).gameObject.GetComponent<Animator>().SetFloat("rotation", now);
+                //Delete//childGameObjects["menu"].transform.GetChild(0).gameObject.GetComponent<Animator>().SetFloat("rotationoriginal", tangible.AngleDegrees);
+                //Delete//Debug.Log("Hello 3");
 
             }
 
@@ -118,14 +133,15 @@ public class userAScript : MonoBehaviour {
         {
             childGameObjects["menu"].SetActive(false); // disable menu on fiducial out
             childGameObjects["menuSelector"].SetActive(false); // disable menuSelector on fiducial out
-
-            //-show gradient ring
+            childGameObjects["userImg"].SetActive(true); // enable image
+            // show gradient ring
             colOL.enabled = true;
             colbS.enabled = false;
-            //-start server animator
+            // start server animator
             user_fadingOBJ.enabled = true;
 
             initialOnce = false;
+            //Delete//Debug.Log("Hello 4");
 
         }
     }
