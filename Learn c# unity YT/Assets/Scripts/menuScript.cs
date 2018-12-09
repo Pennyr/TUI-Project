@@ -16,8 +16,8 @@ public class menuScript : MonoBehaviour
     IPEndPoint userBTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 21000);  // target endpoint
     IPEndPoint hackerTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 31000);  // target endpoint
     IPEndPoint chestTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 41000);  // target endpoint
-
-    Byte[] sendBytes;
+    IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+    Byte[] sendBytes, receiveBytes;
 
     // Use this for initialization
     void Start()
@@ -88,6 +88,20 @@ public class menuScript : MonoBehaviour
         }
         else if (pointerRotation > 109 && pointerRotation < 121) // active enc data 
         {
+            // Sends a message to the tangible
+            sendBytes = Encoding.ASCII.GetBytes("Unity: User wants to send encrypted, blink key hole led");
+            udpClient.BeginSend(sendBytes, sendBytes.Length, chestTangible, null, null);
+
+            receiveBytes = udpClient.Receive(ref RemoteIpEndPoint);
+            string returnData = Encoding.ASCII.GetString(receiveBytes);
+            Debug.Log("Message received: " + returnData.ToString());
+
+            childGameObjects["encData"].SetActive(true);
+            while (childGameObjects["encData"].activeSelf)
+            {
+                // wait until encryption animation
+            }
+
             childGameObjects["encDataUserB"].SetActive(true);
             childGameObjects["encDataHkr"].SetActive(true);
 

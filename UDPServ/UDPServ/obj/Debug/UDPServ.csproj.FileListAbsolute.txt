@@ -7,3 +7,6 @@ C:\Users\rob\Documents\Visual Studio 2015\Projects\SysLogServer\UDPServ\UDPServ\
 C:\Users\rob\Documents\UnityProject\TUI-Project\UDPServ\UDPServ\bin\Debug\UDPServ.exe.config
 C:\Users\rob\Documents\UnityProject\TUI-Project\UDPServ\UDPServ\obj\Debug\UDPServ.exe
 C:\Users\rob\Documents\UnityProject\TUI-Project\UDPServ\UDPServ\obj\Debug\UDPServ.pdb
+C:\Users\rob\Documents\UnityProject\TUI-Project\UDPServ\UDPServ\bin\Debug\UDPServ.exe
+C:\Users\rob\Documents\UnityProject\TUI-Project\UDPServ\UDPServ\bin\Debug\UDPServ.pdb
+C:\Users\rob\Documents\UnityProject\TUI-Project\UDPServ\UDPServ\obj\Debug\UDPServ.csprojResolveAssemblyReference.cache

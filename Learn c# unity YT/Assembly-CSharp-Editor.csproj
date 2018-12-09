@@ -63,15 +63,6 @@
   <ItemGroup>
     <Compile Include="Assets\UNIDUCIAL (UNITY)\Editor\UniducialInspector.cs" />
     <Compile Include="Assets\UNIDUCIAL (UNITY)\Editor\UniducialMenu.cs" />
-    <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/rob/Documents/UnityProject/TUI-Project/Learn c# unity YT/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/rob/Documents/UnityProject/TUI-Project/Learn c# unity YT/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/rob/Documents/UnityProject/TUI-Project/Learn c# unity YT/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/rob/Documents/UnityProject/TUI-Project/Learn c# unity YT/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
