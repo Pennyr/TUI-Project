@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class animationEnd : MonoBehaviour {
+public class animationEnd : MonoBehaviour
+{
+
+    public bool imready = false;
+    public bool imdone { get; set; }
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +22,11 @@ public class animationEnd : MonoBehaviour {
     {
         // Turns object off @ end of animation
         this.gameObject.SetActive(false);
-
     }
+
+    void AnimationFinish()
+    {
+        imready = true;
+    }
+    
 }

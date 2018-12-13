@@ -25,14 +25,6 @@ public class userAScript : MonoBehaviour {
 
     private Vector3 collBounds;
 
-    UdpClient udpClient = new UdpClient(); // new UdpClient() // with tangable try fixing a port
-    IPEndPoint userATangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 51000);  // target endpoint
-    IPEndPoint userBTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 21000);  // target endpoint
-    IPEndPoint hackerTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 31000);  // target endpoint
-    IPEndPoint chestTangible = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 41000);  // target endpoint
-
-    Byte[] sendBytes;
-
     // Use this for initialization
     void Start() // On Game Start
     {
@@ -41,8 +33,10 @@ public class userAScript : MonoBehaviour {
  
         // Get reference to children objects
         childGameObjects.Add("userImg", this.transform.GetChild(0).gameObject);         // user icon
-        childGameObjects.Add("menuSelector", this.transform.GetChild(1).gameObject);    // menu child object
-        childGameObjects.Add("menu", this.transform.GetChild(2).gameObject);            // menu child object
+        childGameObjects.Add("menuSelector", this.transform.GetChild(1).gameObject);    // menu selector child object
+        childGameObjects.Add("keyMenu", this.transform.GetChild(2).gameObject);         // sym/asym menu child object
+        childGameObjects.Add("userMenu", this.transform.GetChild(3).gameObject);        // user menu child object
+        childGameObjects.Add("action", this.transform.GetChild(4).gameObject);        // user menu child object
 
         // initialise variables
         user_ps = this.GetComponent<ParticleSystem>();
@@ -54,13 +48,7 @@ public class userAScript : MonoBehaviour {
         colOL.enabled = true;   //-gradient ring
         colbS.enabled = false;  //-solid ring
 
-        // Sends a message to the tangible
-        sendBytes = Encoding.ASCII.GetBytes("Unity: Place tangibles in place, blink led");
-
-        udpClient.BeginSend(sendBytes, sendBytes.Length, userATangible, null, null);
-        udpClient.BeginSend(sendBytes, sendBytes.Length, userBTangible, null, null);
-        udpClient.BeginSend(sendBytes, sendBytes.Length, hackerTangible, null, null);
-        udpClient.BeginSend(sendBytes, sendBytes.Length, chestTangible, null, null);
+        
     }
 
     // Update is called once per frame
@@ -71,6 +59,8 @@ public class userAScript : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
+        
+
         var colOL = user_ps.colorOverLifetime;
         var colbS = user_ps.colorBySpeed;
 
@@ -79,13 +69,15 @@ public class userAScript : MonoBehaviour {
         //-2. turn server sprite animation off and fade out
         if (other.gameObject.tag == fiducialTag && other.bounds.Contains(collBounds))
         {
+            Debug.Log("Trigger Stay User A Script");
 
             // get initial tangible angle
             if (!initialOnce)
             {
-                childGameObjects["menu"].SetActive(true); // enable menu on fiducial in
-                childGameObjects["menuSelector"].SetActive(true); // enable menuSelector on fiducial in
                 childGameObjects["userImg"].SetActive(false); // disable image
+                childGameObjects["menuSelector"].SetActive(true); // enable menuSelector on fiducial in
+                childGameObjects["keyMenu"].SetActive(true); // enable menu on fiducial in
+
                 // show solid ring
                 colOL.enabled = false;
                 colbS.enabled = true;
@@ -95,10 +87,6 @@ public class userAScript : MonoBehaviour {
 
                 initialOnce = true;
 
-                // Sends a message to the tangible
-                sendBytes = Encoding.ASCII.GetBytes("Unity: Tangible in place, led off");
-
-                udpClient.BeginSend(sendBytes, sendBytes.Length, userATangible, null, null);
             }
 
             now = tangible.AngleDegrees;
@@ -107,6 +95,9 @@ public class userAScript : MonoBehaviour {
             if (now > pointerStart && now < pointerEnd) // if tangible angle is within range & clip tangible rotation to pointer limits
             {
                 childGameObjects["menuSelector"].transform.rotation = Quaternion.Euler(180,0,now);
+
+                if (childGameObjects["keyMenu"].activeSelf)
+                    childGameObjects["keyMenu"].GetComponent<Animator>().SetFloat("rotation", now);
             }
 
         }
@@ -114,6 +105,8 @@ public class userAScript : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
+        Debug.Log("Trigger Exit User A Script");
+
         var colOL = user_ps.colorOverLifetime;
         var colbS = user_ps.colorBySpeed;
 
@@ -122,15 +115,20 @@ public class userAScript : MonoBehaviour {
         //-2. turn server sprite animation on and visible
         if (other.gameObject.tag == fiducialTag)
         {
-            childGameObjects["menu"].SetActive(false); // disable menu on fiducial out
-            childGameObjects["menuSelector"].SetActive(false); // disable menuSelector on fiducial out
             childGameObjects["userImg"].SetActive(true); // enable image
+            childGameObjects["menuSelector"].SetActive(false); // disable menuSelector on fiducial out
+            childGameObjects["keyMenu"].SetActive(false); // disable menu on fiducial out
+            childGameObjects["userMenu"].SetActive(false); // disable menu on fiducial out
+            childGameObjects["action"].SetActive(false); // disable actions on fiducial out
+
             // show gradient ring
             colOL.enabled = true;
             colbS.enabled = false;
 
             initialOnce = false;
         }
+
+        // Reset any ongoing animations
     }
 
 
