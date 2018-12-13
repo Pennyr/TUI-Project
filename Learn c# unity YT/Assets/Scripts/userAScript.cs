@@ -16,10 +16,8 @@ public class userAScript : MonoBehaviour {
     private string fiducialTag = "userA";
     private bool initialOnce = false; //-enable other animator only once
 
-    private float prev = 60;
     private float now;
     private float initial;
-    private float offset;
     private float pointerStart = 60;
     private float pointerEnd = 120;
 
@@ -36,7 +34,7 @@ public class userAScript : MonoBehaviour {
         childGameObjects.Add("menuSelector", this.transform.GetChild(1).gameObject);    // menu selector child object
         childGameObjects.Add("keyMenu", this.transform.GetChild(2).gameObject);         // sym/asym menu child object
         childGameObjects.Add("userMenu", this.transform.GetChild(3).gameObject);        // user menu child object
-        childGameObjects.Add("action", this.transform.GetChild(4).gameObject);        // user menu child object
+        childGameObjects.Add("action", this.transform.GetChild(4).gameObject);          // user menu child object
 
         // initialise variables
         user_ps = this.GetComponent<ParticleSystem>();
@@ -83,14 +81,14 @@ public class userAScript : MonoBehaviour {
                 colbS.enabled = true;
 
                 initial = tangible.AngleDegrees;
-                offset = 60 - initial;
+                //offset = 60 - initial;
 
                 initialOnce = true;
 
             }
 
             now = tangible.AngleDegrees;
-            now += offset;
+            //now += offset;
 
             if (now > pointerStart && now < pointerEnd) // if tangible angle is within range & clip tangible rotation to pointer limits
             {

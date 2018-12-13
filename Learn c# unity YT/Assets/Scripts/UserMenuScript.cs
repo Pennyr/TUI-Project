@@ -12,8 +12,7 @@ public class UserMenuScript : MonoBehaviour
     private Dictionary<string, GameObject> childGameObjects = new Dictionary<string, GameObject>();
     private GameObject Action;
     public bool userMenu { get; set; }
-
-    private animationEnd animEnd;
+    
 
 
 
@@ -33,9 +32,7 @@ public class UserMenuScript : MonoBehaviour
         childGameObjects.Add("encDataHkr", Action.transform.GetChild(3).gameObject);    // send encrypted data to user B
         childGameObjects.Add("keyUserB", Action.transform.GetChild(4).gameObject);      // send encrypted data to hacker
         childGameObjects.Add("keyHkr", Action.transform.GetChild(5).gameObject);    // send encrypted data to user B
-        childGameObjects.Add("encData", Action.transform.GetChild(6).gameObject);      // send encrypted data to hacker
-        childGameObjects.Add("closeChest", Action.transform.GetChild(7).gameObject);        // send key to user B
-        childGameObjects.Add("private_key", Action.transform.GetChild(8).gameObject);          // send key to hacker
+        childGameObjects.Add("private_key", Action.transform.GetChild(6).gameObject);          // send key to hacker
     }
     
     // Update is called once per frame
@@ -43,9 +40,14 @@ public class UserMenuScript : MonoBehaviour
     {
         pointerRotation = this.transform.parent.GetChild(1).transform.localRotation.eulerAngles.z;
         
-        childGameObjects["sendRaw"].GetComponent<Animator>().SetFloat("rotation", pointerRotation);
-        childGameObjects["sendKey"].GetComponent<Animator>().SetFloat("rotation", pointerRotation);
-        childGameObjects["sendEnc"].GetComponent<Animator>().SetFloat("rotation", pointerRotation);
+        if(childGameObjects["sendRaw"].activeSelf)
+            childGameObjects["sendRaw"].GetComponent<Animator>().SetFloat("rotation", pointerRotation);
+
+        if (childGameObjects["sendKey"].activeSelf)
+            childGameObjects["sendKey"].GetComponent<Animator>().SetFloat("rotation", pointerRotation);
+
+        if (childGameObjects["sendEnc"].activeSelf)
+            childGameObjects["sendEnc"].GetComponent<Animator>().SetFloat("rotation", pointerRotation);
 
     }
 

@@ -42,9 +42,9 @@ public class KeyMenuScript : MonoBehaviour
             UserMenu.userMenu = false;
         }
 
-        this.transform.parent.GetChild(2).gameObject.SetActive(false);
-        this.transform.parent.GetChild(3).gameObject.SetActive(true);
-        this.transform.parent.GetChild(4).gameObject.SetActive(true);
+        this.transform.parent.GetChild(2).gameObject.SetActive(false);  // sym-asym menu
+        this.transform.parent.GetChild(3).gameObject.SetActive(true);   // user menu
+        this.transform.parent.GetChild(4).gameObject.SetActive(true);   //action
     }
 
    
