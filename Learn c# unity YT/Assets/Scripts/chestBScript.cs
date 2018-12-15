@@ -97,5 +97,5 @@ public class chestBScript : MonoBehaviour {
         // Reset any ongoing animations
     }
 
-
+    // René function for detecting key in and toggle boolean B_KeyIn
 }

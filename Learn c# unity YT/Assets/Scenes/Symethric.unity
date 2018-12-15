@@ -20632,7 +20632,7 @@ Transform:
   m_GameObject: {fileID: 700681013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.02, y: 1.02, z: 0}
-  m_LocalScale: {x: -0.2, y: 0.2, z: 0.08964581}
+  m_LocalScale: {x: -0.151858, y: 0.151858, z: 0.06806716}
   m_Children: []
   m_Father: {fileID: 50515668}
   m_RootOrder: 0
@@ -22346,7 +22346,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
-  m_Size: {x: 17.45, y: 17.45}
+  m_Size: {x: 10.8, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -24204,7 +24204,7 @@ Transform:
   m_GameObject: {fileID: 1690699162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.03, y: -0.07, z: 0}
-  m_LocalScale: {x: -0.2, y: 0.2, z: 0.08964581}
+  m_LocalScale: {x: -0.159514, y: 0.159514, z: 0.07149881}
   m_Children: []
   m_Father: {fileID: 1613390628}
   m_RootOrder: 0
@@ -29229,7 +29229,6 @@ GameObject:
   - component: {fileID: 1804778328}
   - component: {fileID: 1804778331}
   - component: {fileID: 1804778330}
-  - component: {fileID: 1804778329}
   m_Layer: 0
   m_Name: KeyUsrB
   m_TagString: Untagged
@@ -29250,18 +29249,6 @@ Transform:
   m_Father: {fileID: 2140299497}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1804778329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1804778327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f45a53e131fcc045a11614886534055, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imready: 0
 --- !u!95 &1804778330
 Animator:
   serializedVersion: 3
@@ -29312,8 +29299,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -774965839
-  m_SortingLayer: 3
+  m_SortingLayerID: 1331720551
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2111b56db7ca1a940b4c7612b857d6e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -29336,7 +29323,6 @@ GameObject:
   - component: {fileID: 1830931009}
   - component: {fileID: 1830931012}
   - component: {fileID: 1830931011}
-  - component: {fileID: 1830931010}
   m_Layer: 0
   m_Name: RawDataHkr
   m_TagString: Untagged
@@ -29357,18 +29343,6 @@ Transform:
   m_Father: {fileID: 2140299497}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1830931010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1830931008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f45a53e131fcc045a11614886534055, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imready: 0
 --- !u!95 &1830931011
 Animator:
   serializedVersion: 3
@@ -39413,7 +39387,6 @@ GameObject:
   - component: {fileID: 1992952206}
   - component: {fileID: 1992952205}
   - component: {fileID: 1992952204}
-  - component: {fileID: 1992952207}
   m_Layer: 0
   m_Name: UserMenu
   m_TagString: Untagged
@@ -39486,28 +39459,13 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 0.5811063, y: 0.32317066}
-  - {x: 2.7131617, y: 2.0139318}
-  - {x: 2.7622216, y: 5.3712616}
-  - {x: 1.2657678, y: 6.266493}
---- !u!95 &1992952207
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1992952202}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1807a2f247c60e54fa5e12a68e1fb1a3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  - {x: 1.345377, y: 1.206872}
+  - {x: 2.1647902, y: 1.791943}
+  - {x: 2.85, y: 2.3710492}
+  - {x: 2.85, y: 4.46181}
+  - {x: 2.239551, y: 5.195109}
+  - {x: 1.731045, y: 5.5191607}
+  - {x: 1.2512845, y: 5.7456694}
 --- !u!1 &2013164443
 GameObject:
   m_ObjectHideFlags: 0

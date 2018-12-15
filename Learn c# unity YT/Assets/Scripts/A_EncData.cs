@@ -5,11 +5,18 @@ using UnityEngine;
 public class A_EncData : MonoBehaviour
 {
     public GameObject B_chestObject;
+    private GameObject userMenu;
+    private Dictionary<string, GameObject> childGameObjects = new Dictionary<string, GameObject>();
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
 	{
-	    this.gameObject.GetComponent<Animator>().SetBool("A_Unlock", false);
+	    childGameObjects.Add("sendKeyDis", userMenu.transform.GetChild(2).gameObject);    // send raw data to user B
+	    childGameObjects.Add("sendKey", userMenu.transform.GetChild(3).gameObject);    // send raw data to user B
+	    childGameObjects.Add("sendEncDis", userMenu.transform.GetChild(4).gameObject);    // send raw data to hacker
+	    childGameObjects.Add("sendEnc", userMenu.transform.GetChild(5).gameObject);    // send raw data to hacker
+
+        this.gameObject.GetComponent<Animator>().SetBool("A_Unlock", false);
     }
 	
 	// Update is called once per frame
@@ -21,9 +28,23 @@ public class A_EncData : MonoBehaviour
         }
     }
 
-    void EndofAnimation()
+    void EndofMoveAnimation()
     {
-        Debug.Log("Message from A_EncData: EndofAnimation");
+        Debug.Log("Message from A_EncData: EndofMoveAnimation");
         B_chestObject.SetActive(true);
+        // René communicate with chest - blink key hole led, lid should be closed
+    }
+
+    void EndofDecryptAnimation()
+    {
+        Debug.Log("Message from A_EncData: EndofDecryptAnimation");
+        B_chestObject.SetActive(false);
+        this.gameObject.SetActive(false);
+
+        childGameObjects["sendKeyDis"].SetActive(false);
+        childGameObjects["sendKey"].SetActive(true);
+
+        childGameObjects["sendEncDis"].SetActive(false);
+        childGameObjects["sendEnc"].SetActive(true);
     }
 }
