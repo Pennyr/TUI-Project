@@ -11,7 +11,10 @@ public class A_EncData : MonoBehaviour
     // Use this for initialization
     void Start ()
 	{
-	    childGameObjects.Add("sendKeyDis", userMenu.transform.GetChild(2).gameObject);    // send raw data to user B
+	    userMenu = this.transform.parent.parent.GetChild(3).gameObject;
+	    Debug.Log("Message from A_RawData: " + userMenu.name);
+
+        childGameObjects.Add("sendKeyDis", userMenu.transform.GetChild(2).gameObject);    // send raw data to user B
 	    childGameObjects.Add("sendKey", userMenu.transform.GetChild(3).gameObject);    // send raw data to user B
 	    childGameObjects.Add("sendEncDis", userMenu.transform.GetChild(4).gameObject);    // send raw data to hacker
 	    childGameObjects.Add("sendEnc", userMenu.transform.GetChild(5).gameObject);    // send raw data to hacker

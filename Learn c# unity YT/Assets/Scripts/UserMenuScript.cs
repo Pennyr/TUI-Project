@@ -26,13 +26,13 @@ public class UserMenuScript : MonoBehaviour
 
         Action = this.transform.parent.GetChild(4).gameObject;
 
-        childGameObjects.Add("rawDataUserB", Action.transform.GetChild(0).gameObject);         // data encryption animation
-        childGameObjects.Add("rawDataHkr", Action.transform.GetChild(1).gameObject);       // data decryption animation
-        childGameObjects.Add("encDataUserB", Action.transform.GetChild(2).gameObject);         // data encryption animation
+        childGameObjects.Add("rawDataUserB", Action.transform.GetChild(0).gameObject);  // data encryption animation
+        childGameObjects.Add("rawDataHkr", Action.transform.GetChild(1).gameObject);    // data decryption animation
+        childGameObjects.Add("encDataUserB", Action.transform.GetChild(2).gameObject);  // data encryption animation
         childGameObjects.Add("encDataHkr", Action.transform.GetChild(3).gameObject);    // send encrypted data to user B
         childGameObjects.Add("keyUserB", Action.transform.GetChild(4).gameObject);      // send encrypted data to hacker
-        childGameObjects.Add("keyHkr", Action.transform.GetChild(5).gameObject);    // send encrypted data to user B
-        childGameObjects.Add("private_key", Action.transform.GetChild(6).gameObject);          // send key to hacker
+        childGameObjects.Add("keyHkr", Action.transform.GetChild(5).gameObject);        // send encrypted data to user B
+        childGameObjects.Add("private_key", Action.transform.GetChild(6).gameObject);   // send key to hacker
     }
     
     // Update is called once per frame
@@ -59,7 +59,7 @@ public class UserMenuScript : MonoBehaviour
 
         if (pointerRotation > 60 && pointerRotation < 85) // active raw data 
         {
-            // to make anim repeatable, remove EndOfAnimation function and make enable & disable
+            
             childGameObjects["rawDataUserB"].SetActive(true);
             childGameObjects["rawDataHkr"].SetActive(true);
 
@@ -69,7 +69,7 @@ public class UserMenuScript : MonoBehaviour
         {
             if (userMenu)
             {
-                // to make anim repeatable, remove EndOfAnimation function and make enable & disable
+                
                 childGameObjects["keyUserB"].SetActive(true);
                 childGameObjects["keyHkr"].SetActive(true);
             }

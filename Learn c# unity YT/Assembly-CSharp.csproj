@@ -74,13 +74,14 @@
     <Compile Include="Assets\NetTest\tcpServer.cs" />
     <Compile Include="Assets\Scripts\A_EncData.cs" />
     <Compile Include="Assets\Scripts\A_RawData.cs" />
-    <Compile Include="Assets\Scripts\animationEnd.cs" />
+    <Compile Include="Assets\Scripts\A_SymKey.cs" />
     <Compile Include="Assets\Scripts\chestBScript.cs" />
     <Compile Include="Assets\Scripts\DragableUI.cs" />
     <Compile Include="Assets\Scripts\extra.cs" />
     <Compile Include="Assets\Scripts\KeyMenuScript.cs" />
+    <Compile Include="Assets\Scripts\keyServMenuScript.cs" />
+    <Compile Include="Assets\Scripts\keyServScript.cs" />
     <Compile Include="Assets\Scripts\MouseMove.cs" />
-    <Compile Include="Assets\Scripts\Rst_Transform.cs" />
     <Compile Include="Assets\Scripts\userAScript.cs" />
     <Compile Include="Assets\Scripts\UserMenuScript.cs" />
     <Compile Include="Assets\UNIDUCIAL (UNITY)\FiducialController.cs" />

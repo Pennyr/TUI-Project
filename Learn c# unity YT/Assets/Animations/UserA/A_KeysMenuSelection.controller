@@ -34,9 +34,9 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
+  - m_ConditionMode: 4
     m_ConditionEvent: rotation
-    m_EventTreshold: 85
+    m_EventTreshold: 275
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102201063739362360}
   m_Solo: 0
@@ -58,9 +58,12 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 4
+    m_ConditionEvent: rotation
+    m_EventTreshold: 270
   - m_ConditionMode: 3
     m_ConditionEvent: rotation
-    m_EventTreshold: 95
+    m_EventTreshold: 230
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102587342713876936}
   m_Solo: 0
@@ -82,9 +85,9 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
+  - m_ConditionMode: 3
     m_ConditionEvent: rotation
-    m_EventTreshold: 95
+    m_EventTreshold: 275
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102334540910190620}
   m_Solo: 0
@@ -106,9 +109,9 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
+  - m_ConditionMode: 3
     m_ConditionEvent: rotation
-    m_EventTreshold: 85
+    m_EventTreshold: 275
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102147599316434562}
   m_Solo: 0
@@ -118,7 +121,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1

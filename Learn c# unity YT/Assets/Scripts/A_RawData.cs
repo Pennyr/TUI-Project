@@ -12,7 +12,7 @@ public class A_RawData : MonoBehaviour
 	void Start ()
 	{
 	    userMenu = this.transform.parent.parent.GetChild(3).gameObject;
-        Debug.Log("Message from A_RawData: " + userMenu.name);
+        //Debug.Log("Message from A_RawData: " + userMenu.name);
         
 	    childGameObjects.Add("sendRawDis", userMenu.transform.GetChild(0).gameObject);    // send encrypted data to user B
 	    childGameObjects.Add("sendRaw", userMenu.transform.GetChild(1).gameObject);    // send encrypted data to user B
@@ -36,14 +36,14 @@ public class A_RawData : MonoBehaviour
 
     void EndofMoveAnimation()
     {
-        Debug.Log("Message from A_RawData: EndofMoveAnimation");
+        //Debug.Log("Message from A_RawData: EndofMoveAnimation");
         this.gameObject.GetComponent<Animator>().SetBool("goStill", true);
         B_chestObject.SetActive(true);
     }
 
     void EndofTextAnimation()
     {
-        Debug.Log("Message from A_RawData: EndofTextAnimation");
+        //Debug.Log("Message from A_RawData: EndofTextAnimation");
         B_chestObject.SetActive(false);
         this.gameObject.SetActive(false);
 

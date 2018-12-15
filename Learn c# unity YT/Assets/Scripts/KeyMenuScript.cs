@@ -29,13 +29,13 @@ public class KeyMenuScript : MonoBehaviour
 
         pointerRotation = this.transform.parent.GetChild(1).transform.localRotation.eulerAngles.z;
 
-        if (pointerRotation > 60 && pointerRotation < 85)
+        if (pointerRotation > 240 && pointerRotation < 300)
         {
             Debug.Log("User Chose Symmetric");
             //Symmetric 
             UserMenu.userMenu = true;
         }
-        else if (pointerRotation > 109 && pointerRotation < 121)
+        else if (pointerRotation > 180 && pointerRotation < 235)
         {
             Debug.Log("User Chose Asymmetric");
             //Asymmetric 

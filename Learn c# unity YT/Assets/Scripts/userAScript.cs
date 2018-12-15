@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class userAScript : MonoBehaviour {
 
@@ -15,11 +16,14 @@ public class userAScript : MonoBehaviour {
     
     private string fiducialTag = "userA";
     private bool initialOnce = false; //-enable other animator only once
+    private bool keySelection = false;
 
-    private float now;
-    private float initial;
-    private float pointerStart = 60;
-    private float pointerEnd = 120;
+    private float now, offset, initial;
+    private float pointerStart_Key = 230;
+    private float pointerEnd_Key = 300;
+
+    private float pointerStart_User = 60;
+    private float pointerEnd_User = 120;
 
     private Vector3 collBounds;
 
@@ -34,7 +38,7 @@ public class userAScript : MonoBehaviour {
         childGameObjects.Add("menuSelector", this.transform.GetChild(1).gameObject);    // menu selector child object
         childGameObjects.Add("keyMenu", this.transform.GetChild(2).gameObject);         // sym/asym menu child object
         childGameObjects.Add("userMenu", this.transform.GetChild(3).gameObject);        // user menu child object
-        childGameObjects.Add("action", this.transform.GetChild(4).gameObject);          // user menu child object
+        childGameObjects.Add("action", this.transform.GetChild(4).gameObject);          // user action child object
 
         // initialise variables
         user_ps = this.GetComponent<ParticleSystem>();
@@ -80,24 +84,56 @@ public class userAScript : MonoBehaviour {
                 colOL.enabled = false;
                 colbS.enabled = true;
 
-                initial = tangible.AngleDegrees;
-                //offset = 60 - initial;
-
                 initialOnce = true;
 
             }
 
-            now = tangible.AngleDegrees;
-            //now += offset;
 
-            if (now > pointerStart && now < pointerEnd) // if tangible angle is within range & clip tangible rotation to pointer limits
+            if (childGameObjects["keyMenu"].activeSelf)
             {
-                childGameObjects["menuSelector"].transform.rotation = Quaternion.Euler(180,0,now);
+                now = tangible.AngleDegrees - 60;
 
-                if (childGameObjects["keyMenu"].activeSelf)
+                if (now < 0)
+                    now = tangible.AngleDegrees;
+
+                if (now > pointerStart_Key && now < pointerEnd_Key) // if tangible angle is within range & clip tangible rotation to pointer limits
+                {
+                    childGameObjects["menuSelector"].transform.rotation = Quaternion.Euler(180,0,now);
                     childGameObjects["keyMenu"].GetComponent<Animator>().SetFloat("rotation", now);
+                }
+
+                keySelection = false;
             }
 
+            if (!childGameObjects["keyMenu"].activeSelf && !keySelection)
+            {
+                offset = 360 - tangible.AngleDegrees;
+                //Debug.Log("offset: " + offset);
+                if (offset > 100)
+                    offset = tangible.AngleDegrees;
+                    
+                offset += 60;
+
+                keySelection = true;
+            }
+
+            if (childGameObjects["userMenu"].activeSelf)
+            {
+                now = tangible.AngleDegrees + offset;
+
+                if (now > 360)
+                    now -= 360;
+
+                if (now < 0)
+                    now = tangible.AngleDegrees;
+
+                //Debug.Log("now: " + now);
+
+                if (now > pointerStart_User && now < pointerEnd_User) // if tangible angle is within range & clip tangible rotation to pointer limits
+                {
+                    childGameObjects["menuSelector"].transform.rotation = Quaternion.Euler(180, 0, now);
+                }
+            }
         }
     }
 
@@ -113,20 +149,16 @@ public class userAScript : MonoBehaviour {
         //-2. turn server sprite animation on and visible
         if (other.gameObject.tag == fiducialTag)
         {
-            childGameObjects["userImg"].SetActive(true); // enable image
-            childGameObjects["menuSelector"].SetActive(false); // disable menuSelector on fiducial out
-            childGameObjects["keyMenu"].SetActive(false); // disable menu on fiducial out
-            childGameObjects["userMenu"].SetActive(false); // disable menu on fiducial out
-            childGameObjects["action"].SetActive(false); // disable actions on fiducial out
-
             // show gradient ring
             colOL.enabled = true;
             colbS.enabled = false;
 
             initialOnce = false;
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Debug.Log("Reloaded!!");
         }
 
-        // Reset any ongoing animations
     }
 
 
