@@ -1,1 +1,5 @@
-Builds/
+/.vs
+/Library
+/obj
+/Packages
+/ProjectSettings
