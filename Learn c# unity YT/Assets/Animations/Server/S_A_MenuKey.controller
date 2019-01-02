@@ -34,12 +34,12 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: rotation
-    m_EventTreshold: 280
   - m_ConditionMode: 3
     m_ConditionEvent: rotation
-    m_EventTreshold: 260
+    m_EventTreshold: 315
+  - m_ConditionMode: 4
+    m_ConditionEvent: rotation
+    m_EventTreshold: 330
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102209413366907998}
   m_Solo: 0
@@ -63,10 +63,10 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: rotation
-    m_EventTreshold: 260
+    m_EventTreshold: 315
   - m_ConditionMode: 4
     m_ConditionEvent: rotation
-    m_EventTreshold: 280
+    m_EventTreshold: 330
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102922217824626094}
   m_Solo: 0
@@ -143,10 +143,10 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102922217824626094}
-    m_Position: {x: 360, y: 108, z: 0}
+    m_Position: {x: 372, y: 24, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102209413366907998}
-    m_Position: {x: 360, y: 0, z: 0}
+    m_Position: {x: 372, y: 120, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
